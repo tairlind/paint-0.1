@@ -1,0 +1,86 @@
+﻿<Window x:Class="PaintApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PaintApp"
+        mc:Ignorable="d"
+        Title="Paint App" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#FFDCDCDC">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="10" VerticalAlignment="Center">
+                <Button x:Name="btnColorPicker" Content="Цвет" Margin="0 5 0 0" Click="btnColorPicker_Click"/>
+                <Button x:Name="btnEraser" Content="Ластик" Margin="0 5 0 0" Click="btnEraser_Click"/>
+                <Button x:Name="btnSave" Content="Сохранить" Margin="0 5 0 0" Click="btnSave_Click"/>
+                <Button x:Name="btnOpen" Content="Открыть" Margin="0 5 0 0" Click="btnOpen_Click"/>
+                <Button x:Name="btnClear" Content="Очистить" Margin="0 5 0 0" Click="btnClear_Click"/>
+                <Button x:Name="btnBrushSize" Content="Размер кисти" Margin="0 5 0 0" Click="btnBrushSize_Click"/>
+            </StackPanel>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Margin="10">
+                    <InkCanvas x:Name="inkCanvas1" Background="White"  />
+                </Border>
+                <Grid Grid.Row="1" Grid.Column="0" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Slider x:Name="sliderZoom" Grid.Column="0" Minimum="0.1" Maximum="2" SmallChange="0.1" Value="1" TickFrequency="0.1" TickPlacement="BottomRight" 
+                            ValueChanged="sliderZoom_ValueChanged" />
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0">
+                        <Run Text="Zoom: "/>
+                        <Run Text="{Binding ElementName=sliderZoom, Path=Value, StringFormat=N1}"/>
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1" Margin="0 10 10 0" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Rectangle Grid.Row="0" Fill="White" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider x:Name="sliderHorizontal" Grid.Column="0" Minimum="0" Maximum="100" Value="0" SmallChange="1" TickFrequency="10" TickPlacement="BottomRight" 
+                                ValueChanged="sliderHorizontal_ValueChanged" />
+                        <Slider x:Name="sliderVertical" Grid.Column="1" Orientation="Vertical" Minimum="0" Maximum="100" Value="0" SmallChange="1" TickFrequency="10" TickPlacement="BottomRight" 
+                                ValueChanged="sliderVertical_ValueChanged" />
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                    <Button x:Name="btnZoomIn" Content="+" Height="30" Margin="0,0,25,0" Click="btnZoomIn_Click"/>
+                    <Button x:Name="btnZoomOut" Content="-" Height="30" Click="btnZoomOut_Click" Margin="20,0,5,0"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <InkCanvas x:Name="inkCanvas2" Background="White"  />
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>
